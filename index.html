@@ -25,21 +25,24 @@
   </head>
   <body>
     <div class="container" ng-app="app">
-    <h1>Get the Docker DCO (Developer Certificate of Origin) fast!</h1>
+    <h1>Get the Docker DCO (Developer Certificate of Origin) set up fast!</h1>
     <center>
         <img src="img/docker.png"></img>
         <h1 id="weheart">we ♥ contributors</h1>
     </center>
     <ol ng-controller="MainCtrl">
         <li>
-        <p>Option 1: Run this command in your local git repository (top level) to automatically append the DCO to commits you make:</p>
-        <pre>curl -sSL -o .git/hooks/prepare-commit-msg https://raw.githubusercontent.com/dotcloud/docker/master/contrib/prepare-commit-msg.hook && chmod +x .git/hooks/prepare-commit-msg</pre>
+        <p>Option 1: When, you commit, use <code>git commit</code>'s <code>-s</code> flag</p>
+<pre>git add changed_file.go changed_file_test.go
+git commit -s</pre>
 
         <p>Make sure you have run:</p>
 
 <pre>git config --global user.name "Your Name"
 git config --global user.email youremail@domain.com
-git config --global github.user yourGithubHandle</pre>
+</pre>
+
+       <p> If you need to revise existing commits to add the DCO, <a href="http://git-scm.com/book/en/Git-Tools-Rewriting-History">see this excellent reference on rewriting git history</a>.  Once you have revised the commits, you can use `git push -f` on the branch which you are using for the pull request.  Be careful, however, not to accidentally over-write existing work. </p>
         </li>
         <li>
         <p>Option 2: Fill in your credentials and copy-paste from the box that appears at the bottom of the page:</p>
@@ -56,12 +59,6 @@ git config --global github.user yourGithubHandle</pre>
               <input type="email" class="form-control" ng-model="email" id="inputEmail" placeholder="Your email">
             </div>
           </div>
-          <div class="form-group">
-            <label for="inputGithub" class="col-sm-2 control-label">Your Github username:</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" ng-model="github" id="inputGithub" placeholder="Your Github username">
-            </div>
-          </div>
         </form>
 <pre ng-show="showDCO()">Docker-DCO-1.1-Signed-off-by: {{name}} <{{email}}> (github: {{github}})</pre>
         </li>
@@ -74,7 +71,7 @@ git config --global github.user yourGithubHandle</pre>
     <script>
     angular.module('app', []).controller('MainCtrl', function($scope) {
         $scope.showDCO = function() {
-            return $scope.name !== undefined || $scope.email !== undefined || $scope.github !== undefined;
+            return $scope.name !== undefined || $scope.email !== undefined;
         };
     });
     </script>
